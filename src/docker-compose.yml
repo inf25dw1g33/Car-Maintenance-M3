@@ -1,0 +1,67 @@
+services:
+  mysql:
+    build: ./db
+    image: inf25dw1g33/mysql:m3
+    container_name: car-mysql-m3
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: car_maintenance
+      MYSQL_USER: car
+      MYSQL_PASSWORD: car
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - car-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "car", "-pcar"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  api:
+    build: ./api
+    image: inf25dw1g33/api:m3
+    container_name: car-api-m3
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: car
+      DB_PASSWORD: car
+      DB_NAME: car_maintenance
+      NODE_ENV: production
+      PORT: 3000
+      HOST: 0.0.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - car-network
+    restart: unless-stopped
+
+  backoffice:
+    build: ./backoffice
+    image: inf25dw1g33/backoffice:m3
+    container_name: car-backoffice-m3
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+    networks:
+      - car-network
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  car-network:
+    driver: bridge

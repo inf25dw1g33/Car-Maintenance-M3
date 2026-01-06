@@ -1,0 +1,44 @@
+{
+  "name": "car-maintenance-api",
+  "version": "1.0.0",
+  "description": "Car Maintenance API - LoopBack 4 - M3",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
+    "openapi-spec": "node ./dist/openapi-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inf25dw1g33/car-maintenance-m3"
+  },
+  "author": "inf25dw1g33",
+  "license": "MIT",
+  "dependencies": {
+    "@loopback/boot": "^7.0.0",
+    "@loopback/core": "^6.0.0",
+    "@loopback/repository": "^7.0.0",
+    "@loopback/rest": "^14.0.0",
+    "@loopback/rest-explorer": "^7.0.0",
+    "loopback-connector-mysql": "^7.0.0",
+    "tslib": "^2.6.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^11.0.0",
+    "@types/node": "^18.19.0",
+    "source-map-support": "^0.5.21",
+    "typescript": "~5.2.0"
+  }
+}

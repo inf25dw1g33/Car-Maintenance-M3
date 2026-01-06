@@ -1,0 +1,846 @@
+{
+	"info": {
+		"_postman_id": "car-maintenance-m3-collection",
+		"name": "Car Maintenance API - M3",
+		"description": "API REST para gestão de manutenção de automóveis.\n\nDesenvolvido com LoopBack 4 para a disciplina de Desenvolvimento Web I.\n\n**Grupo:** inf25dw1g33\n\n**Recursos disponíveis:**\n- Owners (Proprietários)\n- Vehicles (Veículos)\n- Service Types (Tipos de Serviço)\n- Service Records (Registos de Manutenção)\n- Mechanics (Mecânicos)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Owners",
+			"description": "Gestão de proprietários de veículos",
+			"item": [
+				{
+					"name": "Listar todos os owners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/owners",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners"]
+						},
+						"description": "Retorna a lista de todos os proprietários"
+					}
+				},
+				{
+					"name": "Listar owners com filtro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/owners?filter={\"where\":{\"name\":{\"like\":\"%Silva%\"}}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"name\":{\"like\":\"%Silva%\"}}}"
+								}
+							]
+						},
+						"description": "Retorna owners filtrados por nome"
+					}
+				},
+				{
+					"name": "Listar owners com paginação",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/owners?filter={\"limit\":10,\"offset\":0,\"order\":[\"name ASC\"]}",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"limit\":10,\"offset\":0,\"order\":[\"name ASC\"]}"
+								}
+							]
+						},
+						"description": "Retorna owners com paginação e ordenação"
+					}
+				},
+				{
+					"name": "Contar owners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/owners/count",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners", "count"]
+						},
+						"description": "Retorna o número total de proprietários"
+					}
+				},
+				{
+					"name": "Obter owner por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/owners/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners", "1"]
+						},
+						"description": "Retorna um proprietário específico pelo ID"
+					}
+				},
+				{
+					"name": "Criar novo owner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Novo Proprietário\",\n  \"email\": \"novo@example.com\",\n  \"phone\": \"+351910000099\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/owners",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners"]
+						},
+						"description": "Cria um novo proprietário"
+					}
+				},
+				{
+					"name": "Atualizar owner (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"+351920000099\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/owners/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners", "1"]
+						},
+						"description": "Atualiza parcialmente um proprietário"
+					}
+				},
+				{
+					"name": "Substituir owner (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nome Atualizado\",\n  \"email\": \"atualizado@example.com\",\n  \"phone\": \"+351930000099\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/owners/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners", "1"]
+						},
+						"description": "Substitui completamente um proprietário"
+					}
+				},
+				{
+					"name": "Eliminar owner",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/owners/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["owners", "1"]
+						},
+						"description": "Elimina um proprietário pelo ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "Vehicles",
+			"description": "Gestão de veículos",
+			"item": [
+				{
+					"name": "Listar todos os vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/vehicles",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles"]
+						},
+						"description": "Retorna a lista de todos os veículos"
+					}
+				},
+				{
+					"name": "Listar vehicles com filtro por marca",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/vehicles?filter={\"where\":{\"brand\":\"Volkswagen\"}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"brand\":\"Volkswagen\"}}"
+								}
+							]
+						},
+						"description": "Retorna veículos filtrados por marca"
+					}
+				},
+				{
+					"name": "Listar vehicles por owner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/vehicles?filter={\"where\":{\"ownerId\":1}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"ownerId\":1}}"
+								}
+							]
+						},
+						"description": "Retorna veículos de um proprietário específico (relação 1:N)"
+					}
+				},
+				{
+					"name": "Listar vehicles por ano",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/vehicles?filter={\"where\":{\"year\":{\"gte\":2020}}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"year\":{\"gte\":2020}}}"
+								}
+							]
+						},
+						"description": "Retorna veículos com ano >= 2020"
+					}
+				},
+				{
+					"name": "Contar vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/vehicles/count",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles", "count"]
+						},
+						"description": "Retorna o número total de veículos"
+					}
+				},
+				{
+					"name": "Obter vehicle por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/vehicles/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles", "1"]
+						},
+						"description": "Retorna um veículo específico pelo ID"
+					}
+				},
+				{
+					"name": "Criar novo vehicle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ownerId\": 1,\n  \"brand\": \"Opel\",\n  \"model\": \"Astra H\",\n  \"licensePlate\": \"XX-00-XX\",\n  \"year\": 2008\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vehicles",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles"]
+						},
+						"description": "Cria um novo veículo associado a um proprietário"
+					}
+				},
+				{
+					"name": "Atualizar vehicle (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"year\": 2009\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vehicles/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles", "1"]
+						},
+						"description": "Atualiza parcialmente um veículo"
+					}
+				},
+				{
+					"name": "Substituir vehicle (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ownerId\": 1,\n  \"brand\": \"Opel\",\n  \"model\": \"Astra H CDTI\",\n  \"licensePlate\": \"XX-00-XX\",\n  \"year\": 2008\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vehicles/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles", "1"]
+						},
+						"description": "Substitui completamente um veículo"
+					}
+				},
+				{
+					"name": "Eliminar vehicle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/vehicles/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["vehicles", "1"]
+						},
+						"description": "Elimina um veículo pelo ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "Service Types",
+			"description": "Gestão de tipos de serviço de manutenção",
+			"item": [
+				{
+					"name": "Listar todos os service-types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types"]
+						},
+						"description": "Retorna a lista de todos os tipos de serviço"
+					}
+				},
+				{
+					"name": "Listar service-types com filtro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-types?filter={\"where\":{\"name\":{\"like\":\"%óleo%\"}}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"name\":{\"like\":\"%óleo%\"}}}"
+								}
+							]
+						},
+						"description": "Retorna tipos de serviço filtrados por nome"
+					}
+				},
+				{
+					"name": "Contar service-types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-types/count",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types", "count"]
+						},
+						"description": "Retorna o número total de tipos de serviço"
+					}
+				},
+				{
+					"name": "Obter service-type por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types", "1"]
+						},
+						"description": "Retorna um tipo de serviço específico pelo ID"
+					}
+				},
+				{
+					"name": "Criar novo service-type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Troca de correia de acessórios\",\n  \"description\": \"Substituição da correia de acessórios do motor\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types"]
+						},
+						"description": "Cria um novo tipo de serviço"
+					}
+				},
+				{
+					"name": "Atualizar service-type (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Descrição atualizada do serviço\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types", "1"]
+						},
+						"description": "Atualiza parcialmente um tipo de serviço"
+					}
+				},
+				{
+					"name": "Substituir service-type (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Mudança de óleo completa\",\n  \"description\": \"Substituição de óleo de motor, filtro de óleo e verificação de níveis\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types", "1"]
+						},
+						"description": "Substitui completamente um tipo de serviço"
+					}
+				},
+				{
+					"name": "Eliminar service-type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-types", "1"]
+						},
+						"description": "Elimina um tipo de serviço pelo ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "Service Records",
+			"description": "Gestão de registos de manutenção",
+			"item": [
+				{
+					"name": "Listar todos os service-records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records"]
+						},
+						"description": "Retorna a lista de todos os registos de manutenção"
+					}
+				},
+				{
+					"name": "Listar service-records por vehicle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records?filter={\"where\":{\"vehicleId\":1}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"vehicleId\":1}}"
+								}
+							]
+						},
+						"description": "Retorna registos de manutenção de um veículo específico (relação 1:N)"
+					}
+				},
+				{
+					"name": "Listar service-records por tipo de serviço",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records?filter={\"where\":{\"serviceTypeId\":1}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"serviceTypeId\":1}}"
+								}
+							]
+						},
+						"description": "Retorna registos filtrados por tipo de serviço (relação 1:N)"
+					}
+				},
+				{
+					"name": "Listar service-records por custo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records?filter={\"where\":{\"cost\":{\"gte\":200}},\"order\":[\"cost DESC\"]}",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"cost\":{\"gte\":200}},\"order\":[\"cost DESC\"]}"
+								}
+							]
+						},
+						"description": "Retorna registos com custo >= 200€ ordenados por custo"
+					}
+				},
+				{
+					"name": "Listar service-records por data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records?filter={\"where\":{\"serviceDate\":{\"gte\":\"2024-01-01\"}},\"order\":[\"serviceDate DESC\"]}",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"serviceDate\":{\"gte\":\"2024-01-01\"}},\"order\":[\"serviceDate DESC\"]}"
+								}
+							]
+						},
+						"description": "Retorna registos a partir de uma data específica"
+					}
+				},
+				{
+					"name": "Contar service-records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records/count",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records", "count"]
+						},
+						"description": "Retorna o número total de registos de manutenção"
+					}
+				},
+				{
+					"name": "Obter service-record por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records", "1"]
+						},
+						"description": "Retorna um registo de manutenção específico pelo ID"
+					}
+				},
+				{
+					"name": "Criar novo service-record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vehicleId\": 1,\n  \"serviceTypeId\": 1,\n  \"serviceDate\": \"2024-12-15\",\n  \"mileageKm\": 125000,\n  \"cost\": 95.50,\n  \"notes\": \"Mudança de óleo 5W30 sintético + filtro\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-records",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records"]
+						},
+						"description": "Cria um novo registo de manutenção"
+					}
+				},
+				{
+					"name": "Atualizar service-record (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"notes\": \"Notas atualizadas do serviço\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-records/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records", "1"]
+						},
+						"description": "Atualiza parcialmente um registo de manutenção"
+					}
+				},
+				{
+					"name": "Substituir service-record (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vehicleId\": 1,\n  \"serviceTypeId\": 1,\n  \"serviceDate\": \"2024-12-15\",\n  \"mileageKm\": 125500,\n  \"cost\": 99.90,\n  \"notes\": \"Registo completamente atualizado\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-records/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records", "1"]
+						},
+						"description": "Substitui completamente um registo de manutenção"
+					}
+				},
+				{
+					"name": "Eliminar service-record",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-records/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["service-records", "1"]
+						},
+						"description": "Elimina um registo de manutenção pelo ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "Mechanics",
+			"description": "Gestão de mecânicos",
+			"item": [
+				{
+					"name": "Listar todos os mechanics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mechanics",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics"]
+						},
+						"description": "Retorna a lista de todos os mecânicos"
+					}
+				},
+				{
+					"name": "Listar mechanics com filtro por especialização",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mechanics?filter={\"where\":{\"specialization\":{\"like\":\"%Motor%\"}}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"where\":{\"specialization\":{\"like\":\"%Motor%\"}}}"
+								}
+							]
+						},
+						"description": "Retorna mecânicos filtrados por especialização"
+					}
+				},
+				{
+					"name": "Contar mechanics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mechanics/count",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics", "count"]
+						},
+						"description": "Retorna o número total de mecânicos"
+					}
+				},
+				{
+					"name": "Obter mechanic por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mechanics/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics", "1"]
+						},
+						"description": "Retorna um mecânico específico pelo ID"
+					}
+				},
+				{
+					"name": "Criar novo mechanic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Novo Mecânico\",\n  \"specialization\": \"Mecânica Geral\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mechanics",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics"]
+						},
+						"description": "Cria um novo mecânico"
+					}
+				},
+				{
+					"name": "Atualizar mechanic (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"specialization\": \"Especialização Atualizada\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mechanics/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics", "1"]
+						},
+						"description": "Atualiza parcialmente um mecânico"
+					}
+				},
+				{
+					"name": "Substituir mechanic (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nome Atualizado\",\n  \"specialization\": \"Nova Especialização\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mechanics/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics", "1"]
+						},
+						"description": "Substitui completamente um mecânico"
+					}
+				},
+				{
+					"name": "Eliminar mechanic",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mechanics/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["mechanics", "1"]
+						},
+						"description": "Elimina um mecânico pelo ID"
+					}
+				}
+			]
+		}
+	]
+}

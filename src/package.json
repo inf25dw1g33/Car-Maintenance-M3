@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@loopback/rest-explorer": "^8.0.8"
+  }
+}
