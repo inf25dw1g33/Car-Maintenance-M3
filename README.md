@@ -101,9 +101,13 @@ A API disponibiliza os seguintes recursos principais:
 | -------------------------------------- | ----------------------------------------- |
 | ![Dashboard](doc/images/dashboard.png) | ![Veículos](doc/images/vehicles-list.png) |
 
-| Detalhes do Cliente                        | Agendamentos                                 |
-| ------------------------------------------ | -------------------------------------------- |
-| ![Cliente](doc/images/customer-detail.png) | ![Agendamentos](doc/images/appointments.png) |
+| Detalhes do Cliente                         | Agendamentos                               |
+| ------------------------------------------- | ------------------------------------------ |
+| ![Clientes](doc/images/customer-detail.png) | ![Manutenções](doc/images/maintenance.png) |
+
+| Serviços                                 | Mecânicos                              |
+| ---------------------------------------- | -------------------------------------- |
+| ![Serviços](doc/images/service-type.png) | ![Mecânicos](doc/images/mechanics.png) |
 
 ---
 
