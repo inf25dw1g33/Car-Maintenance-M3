@@ -195,7 +195,6 @@ A documentação completa do projeto está organizada em capítulos:
 - Contexto e objetivos
 - Equipa de desenvolvimento
 - Metodologia utilizada
-- Planeamento e calendarização
 
 ### [Capítulo 2: Recursos](doc/c2.md)
 
@@ -216,7 +215,6 @@ A documentação completa do projeto está organizada em capítulos:
 - Demonstração do sistema
 - Resultados obtidos
 - Conclusões
-- Trabalho futuro
 
 ---
 
