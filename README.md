@@ -6,9 +6,9 @@ Repositório criado no âmbito da disciplina **Desenvolvimento Web I** da Licenc
 
 **Desenvolvido por:**
 
-- [César Ramos] (@https://github.com/devCesarRamos)
-- [Gonçalo Cidras] (@https://github.com/devCidras)
-- [Jorge Espogeira] (@https://github.com/JorgeEspogeira)
+- [@Goncalo Cidras](https://github.com/devCidras)
+- [@Jorge Espogeira](https://github.com/JorgeEspogeira)
+- [@Cesar Ramos](https://github.com/devCesarRamos)
 
 ---
 
