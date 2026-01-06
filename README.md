@@ -97,17 +97,17 @@ A API disponibiliza os seguintes recursos principais:
 
 ### Interface de Backoffice
 
-| Dashboard                                | Lista de Veículos                           |
-| ---------------------------------------- | ------------------------------------------- |
-| ![Dashboard](./doc/images/dashboard.PNG) | ![Veículos](./doc/images/vehicles-list.PNG) |
+| Dashboard                                     | Lista de Veículos                           |
+| ----------------------------------------      | ------------------------------------------- |
+| ![Dashboard](./doc/images/dashboard.PNG)      | ![Veículos](./doc/images/vehicles-list.PNG) |
 
 | Detalhes do Cliente                           | Agendamentos                                 |
 | --------------------------------------------- | -------------------------------------------- |
 | ![Clientes](./doc/images/customer-detail.PNG) | ![Manutenções](./doc/images/maintenance.PNG) |
 
-| Serviços                                   | Mecânicos                                |
-| ------------------------------------------ | ---------------------------------------- |
-| ![Serviços](./doc/images/service-type.PNG) | ![Mecânicos](./doc/images/mechanics.PNG) |
+| Serviços                                      | Mecânicos                                |
+| ------------------------------------------    | ---------------------------------------- |
+| ![Serviços](./doc/images/service-type.PNG)    | ![Mecânicos](./doc/images/mechanics.PNG) |
 
 ---
 
