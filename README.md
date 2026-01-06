@@ -99,15 +99,15 @@ A API disponibiliza os seguintes recursos principais:
 
 | Dashboard                                | Lista de Veículos                           |
 | ---------------------------------------- | ------------------------------------------- |
-| ![Dashboard](./doc/images/dashboard.PNG) | ![Veículos](./doc/images/vehicles-list.png) |
+| ![Dashboard](./doc/images/dashboard.PNG) | ![Veículos](./doc/images/vehicles-list.PNG) |
 
 | Detalhes do Cliente                           | Agendamentos                                 |
 | --------------------------------------------- | -------------------------------------------- |
-| ![Clientes](./doc/images/customer-detail.png) | ![Manutenções](./doc/images/maintenance.png) |
+| ![Clientes](./doc/images/customer-detail.PNG) | ![Manutenções](./doc/images/maintenance.PNG) |
 
 | Serviços                                   | Mecânicos                                |
 | ------------------------------------------ | ---------------------------------------- |
-| ![Serviços](./doc/images/service-type.png) | ![Mecânicos](./doc/images/mechanics.png) |
+| ![Serviços](./doc/images/service-type.PNG) | ![Mecânicos](./doc/images/mechanics.PNG) |
 
 ---
 
