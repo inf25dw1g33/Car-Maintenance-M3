@@ -22,7 +22,7 @@ O sistema permite gerir proprietários de veículos, veículos, tipos de serviç
 
 - **API REST** desenvolvida com **LoopBack 4** (abordagem Code-first)
 - **Interface de Backoffice** moderna construída com **React-Admin**
-- **Base de dados MySQL** com relações 1:N e M:N
+- **Base de dados MySQL** com relações 1:N e M:N (na BD)
 - **Arquitetura containerizada** com Docker (3 containers)
 - **Documentação OpenAPI 3.0** gerada automaticamente
 - **Collection Postman** completa com 46+ requests
@@ -33,38 +33,43 @@ O sistema permite gerir proprietários de veículos, veículos, tipos de serviç
 ## 🗂️ Organização do Repositório
 
 ```
-Car-Maintenance-M3/
+Car-Maintenance-M3-main/
 │
 ├── src/                          # Código fonte da aplicação
 │   ├── api/                      # API LoopBack 4
-│   │   ├── models/               # Modelos de dados
-│   │   ├── controllers/          # Controladores REST
-│   │   ├── repositories/         # Repositórios de acesso a dados
-│   │   └── datasources/          # Configuração de datasources
+│   │   ├── src/
+│   │   │   ├── models/           # Modelos de dados
+│   │   │   ├── controllers/      # Controladores REST
+│   │   │   ├── repositories/     # Repositórios de acesso a dados
+│   │   │   └── datasources/      # Configuração de datasources
+│   │   ├── Dockerfile
+│   │   └── package.json
 │   │
-│   └── backoffice/               # Cliente React-Admin
-│       ├── src/
-│       │   ├── components/       # Componentes React
-│       │   ├── resources/        # Definição de recursos
-│       │   └── providers/        # Data providers
-│       └── public/
+│   ├── backoffice/               # Cliente React-Admin
+│   │   ├── src/
+│   │   │   ├── components/       # Componentes React
+│   │   │   ├── resources/        # Definição de recursos
+│   │   │   └── providers/        # Data providers
+│   │   ├── public/
+│   │   ├── Dockerfile
+│   │   └── package.json
+│   │
+│   ├── db/                       # Base de dados MySQL
+│   │   ├── init.sql              # Schema e dados iniciais
+│   │   └── Dockerfile
+│   │
+│   ├── postman/                  # Collections Postman
+│   │   └── Car_Maintenance_API.postman_collection.json
+│   │
+│   ├── docker-compose.yml        # Orquestração de containers
+│   └── package.json
 │
 ├── doc/                          # Documentação do projeto
 │   ├── c1.md                     # Capítulo 1: Apresentação
 │   ├── c2.md                     # Capítulo 2: Recursos
 │   ├── c3.md                     # Capítulo 3: Produto
-│   └── c4.md                     # Capítulo 4: Apresentação
-│
-├── docker/                       # Configuração Docker
-│   ├── docker-compose.yml        # Orquestração de containers
-│   ├── api.Dockerfile            # Dockerfile da API
-│   └── backoffice.Dockerfile     # Dockerfile do backoffice
-│
-├── postman/                      # Collections Postman
-│   └── CarMaintenance.postman_collection.json
-│
-├── openapi/                      # Documentação OpenAPI
-│   └── openapi.yaml              # Especificação OpenAPI 3.0
+│   ├── c4.md                     # Capítulo 4: Apresentação
+│   └── images/                   # Imagens da documentação
 │
 ├── .gitignore
 ├── LICENSE
@@ -83,14 +88,14 @@ A API disponibiliza os seguintes 5 recursos principais:
 | **Vehicles**         | `/api/vehicles`       | Veículos registados no sistema                 |
 | **Service Types**    | `/api/service-types`  | Tipos de serviço de manutenção                 |
 | **Service Records**  | `/api/service-records`| Registos de manutenções realizadas             |
-| **Mechanics**        | `/api/mechanics`      | Mecânicos (relação M:N com Service Records)    |
+| **Mechanics**        | `/api/mechanics`      | Mecânicos (relação M:N na BD)                  |
 
 ### Relações entre Recursos
 
 - **Owner → Vehicles** (1:N) - Um proprietário pode ter múltiplos veículos
 - **Vehicle → Service Records** (1:N) - Um veículo tem múltiplos registos de manutenção
 - **Service Type → Service Records** (1:N) - Um tipo de serviço está em múltiplos registos
-- **Service Records ↔ Mechanics** (M:N) - Um registo pode ter vários mecânicos, um mecânico trabalha em vários registos
+- **Service Records ↔ Mechanics** (M:N na BD) - Implementado através da tabela `service_record_mechanics` (não exposta via API)
 
 ---
 
@@ -170,7 +175,7 @@ GET /api/service-records?filter={"where":{"cost":{"gte":200}},"order":["cost DES
 
 ```bash
 git clone https://github.com/inf25dw1g33/Car-Maintenance-M3.git
-cd Car-Maintenance-M3
+cd Car-Maintenance-M3/src
 ```
 
 ### Executar com Docker Compose
@@ -252,7 +257,7 @@ A documentação completa do projeto está organizada em capítulos:
 
 ## 📝 Collection Postman
 
-Uma collection completa com **46+ requests** está disponível em [`postman/Car_Maintenance_API.postman_collection.json`](postman/Car_Maintenance_API.postman_collection.json).
+Uma collection completa com **46+ requests** está disponível em [`src/postman/Car_Maintenance_API.postman_collection.json`](src/postman/Car_Maintenance_API.postman_collection.json).
 
 **Para importar:**
 1. Abrir Postman
@@ -277,10 +282,10 @@ Uma collection completa com **46+ requests** está disponível em [`postman/Car_
 - ✅ Cliente de backoffice (React-Admin)
 - ✅ Docker multi-container (3 services: MySQL, API, Backoffice)
 
-### Valorizações (2/2)
+### Valorizações (1/2)
 
 - ✅ Filtros através de parâmetros HTTP (built-in LoopBack)
-- ✅ Relação M:N (ServiceRecords ↔ Mechanics)
+- ⚠️ Relação M:N implementada na BD (`service_record_mechanics`), mas **não exposta via API LoopBack**
 
 ### Extras Implementados
 
@@ -298,9 +303,9 @@ Este projeto utilizou ferramentas de IA como assistente no desenvolvimento:
 
 ### Claude AI (Anthropic)
 
-- **Utilização:** Estruturação do código LoopBack 4, configuração de relações 1:N e M:N
+- **Utilização:** Estruturação do código LoopBack 4, configuração de relações 1:N
 - **Prompts principais:**
-  - "Como implementar relação M:N no LoopBack 4 com tabela junction?"
+  - "Como implementar relação 1:N no LoopBack 4?"
   - "Configurar datasource MySQL com healthcheck no LoopBack 4"
   - "Criar dataProvider personalizado para React-Admin com LoopBack 4"
 
